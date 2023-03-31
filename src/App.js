@@ -6,8 +6,6 @@ import ErrorPage from "./page/ErrorPage";
 function App() {
   return (
     // ROUTING 
-
-
     <BrowserRouter>
       <HashRouter basename="/">
         <Routes>
