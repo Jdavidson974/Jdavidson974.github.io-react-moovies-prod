@@ -7,13 +7,11 @@ function App() {
   return (
     // ROUTING 
     <BrowserRouter>
-      <HashRouter basename="/">
-        <Routes>
-          <Route path="/" element={<HomePage />} ></Route>
-          <Route path="/coup-de-coeur" element={<CoupDeCoeur />}  ></Route>
-          <Route path="/*" element={<ErrorPage />}  ></Route>
-        </Routes>
-      </HashRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} ></Route>
+        <Route path="/coup-de-coeur" element={<CoupDeCoeur />}  ></Route>
+        <Route path="/*" element={<ErrorPage />}  ></Route>
+      </Routes>
     </BrowserRouter>
   );
 }
