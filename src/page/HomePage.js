@@ -22,6 +22,30 @@ const HomePage = () => {
     const search = () => {
         fetchData(1, inputText);
     }
+    const getLocalStorage = () => {
+        const store = JSON.parse(localStorage.getItem('films'));
+        if (store) {
+            console.log(store);
+            return JSON.parse(localStorage.getItem('films'))
+        } else {
+            return [];
+        }
+    }
+    let [storage, setStorage] = useState(getLocalStorage);
+
+    // GET ON LOCALSTORAGE ID 
+    const getLocalStorageIds = () => {
+        const store = JSON.parse(localStorage.getItem('ids'));
+        console.log("ids", store);
+        if (store && store.length) {
+            return store;
+        } else {
+            localStorage.clear();
+            return [];
+        }
+    }
+    // IDS 
+    let [ids, setIds] = useState(getLocalStorageIds)
     return (
         <div>
             <NavBar />
@@ -33,7 +57,7 @@ const HomePage = () => {
                 <button onClick={search}>Rechercher</button>
             </div>
             <div className="card-container">
-                {moovies.map((moovie, index) => <Card key={index} data={moovie} />)}
+                {moovies.map((moovie, index) => <Card ids={ids} storage={storage} setIds={setIds} getLocalStorageIds={getLocalStorageIds} setStorage={setStorage} getLocalStorage={getLocalStorage} key={index} data={moovie} />)}
             </div>
         </div>
     );

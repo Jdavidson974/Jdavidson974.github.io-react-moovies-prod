@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-const Card = ({ data, getLocalStorage, setStorage, favoriPage }) => {
+const Card = ({ data, getLocalStorage, storage, setStorage, ids
+    , setIds
+    , getLocalStorageIds }) => {
     const apiKey = "9f44a50a5ee63c57193c6bee26e427bd";
     const imgUrl = "https://image.tmdb.org/t/p/w500/";
     const date = new Date(data.release_date)
@@ -19,43 +21,17 @@ const Card = ({ data, getLocalStorage, setStorage, favoriPage }) => {
             }
         )
     }
-    // GET ON LOCALSTORAGE ID 
-    const getLocalStorageIds = () => {
-        const store = JSON.parse(localStorage.getItem('ids'));
-        if (store) {
-            return store;
-        } else {
-            return [];
-        }
-    }
-    // GET ON LOCALSTORAGE FILMS
-    const getLocalStorageFilms = () => {
-        const store = JSON.parse(localStorage.getItem('films'));
-        if (store) {
-            return store;
-        } else {
-            return [];
-        }
-    }
-    // IDS 
-    let [ids, setIds] = useState(getLocalStorageIds)
-    // FILMS 
-    let [films, setFilms] = useState(getLocalStorageFilms)
     useEffect(fetchDetail, []);
-
     const addToFavori = () => {
         // localStorage.setItem('films', [JSON.stringify(data)]);
-        const storage = localStorage.getItem("films");
-        const storeIds = JSON.parse(localStorage.getItem("ids"));
         if (storage) {
-            const store = JSON.parse(storage);
-            const exist = store.find(item => item.id == data.id);
+            const exist = storage.find(item => item.id == data.id);
             if (!exist) {
-                store.push(data);
-                localStorage.setItem('films', JSON.stringify(store));
-                storeIds.push(data.id)
-                localStorage.setItem("ids", JSON.stringify(storeIds))
-                setFilms(getLocalStorageFilms());
+                storage.push(data);
+                localStorage.setItem('films', JSON.stringify(storage));
+                ids.push(data.id);
+                localStorage.setItem("ids", JSON.stringify(ids))
+                setStorage(getLocalStorage());
                 setIds(getLocalStorageIds());
             } else {
                 //desactiver le like
@@ -63,47 +39,29 @@ const Card = ({ data, getLocalStorage, setStorage, favoriPage }) => {
         } else {
             localStorage.setItem('films', JSON.stringify([data]));
             localStorage.setItem('ids', JSON.stringify([data.id]));
-            setFilms(getLocalStorageFilms());
+            setStorage(getLocalStorage());
             setIds(getLocalStorageIds());
         }
-        console.log(films);
-        console.log(ids);
+
     }
     const removeToFavori = () => {
         // CHANGER LA VALEUR DANS LE LOCAL STORAGE POUR LID ET LOBJET 
         // LANCER LE GET STORAGE 
-        // const newIds = ids.filter(id => id != data.id);
-        // const newFilms = films.filter(film => film.id != data.id);
-        // localStorage.setItem('ids', JSON.stringify(newIds));
-        // localStorage.setItem('films', JSON.stringify(newFilms));
-        // setFilms(getLocalStorageFilms());
-        // setIds(getLocalStorageIds());
-        // if (favoriPage) {
-        //     setStorage(getLocalStorage());
-        // }
+        console.log(data.id);
+        const newIds = ids.filter(id => id != data.id);
+        const newFilms = storage.filter(film => film.id != data.id);
+        if (newFilms && newIds) {
+            localStorage.setItem('ids', JSON.stringify(newIds));
+            localStorage.setItem('films', JSON.stringify(newFilms));
+            setIds(getLocalStorageIds());
+            //Faire en sorte de reset la data
+            setStorage([]);
+            setStorage(getLocalStorage());
 
-        // const newIdsArray = ids.map((item, index) => {
-        //     if (item == data.id) {
-        //         // console.log(item, index);
-        //         // console.log(films, ids);
-        //         // setIds(ids.splice(index, 1));
-        //         // setFilms(films.splice(index, 1));
-        //         // localStorage.setItem('films', JSON.stringify(films));
-        //         // localStorage.setItem('ids', JSON.stringify(ids));
-        //         // setFilms(getLocalStorageFilms());
-        //         // setIds(getLocalStorageIds());
-        //         // console.log(films, ids);
-        //         if (favoriPage) {
-        //             setStorage(getLocalStorage())
-        //         }
-        //         return
-        //     } else {
-        //         return
-        //     }
-
-        // });
-        // console.log(ids);
-
+        } else {
+            setStorage([]);
+            setIds([]);
+        }
     }
     return (
         <div className='moovie-card'>

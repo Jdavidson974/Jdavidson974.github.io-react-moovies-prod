@@ -33,7 +33,7 @@ const CoupDeCoeur = () => {
         <div>
             <NavBar />
             <div className="card-container">
-                {storage.map((data, index) => <FavoriteCard ids={ids} storage={storage} setIds={setIds} getLocalStorageIds={getLocalStorageIds} setStorage={setStorage} getLocalStorage={getLocalStorage} key={index} data={data} />)}
+                {storage.map((data, index) => <Card ids={ids} storage={storage} setIds={setIds} getLocalStorageIds={getLocalStorageIds} setStorage={setStorage} getLocalStorage={getLocalStorage} key={index} data={data} />)}
             </div>
         </div>
     );
