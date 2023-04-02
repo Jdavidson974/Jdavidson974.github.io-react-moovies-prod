@@ -1,4 +1,4 @@
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './styles/index.scss'
 import HomePage from "./page/HomePage";
 import CoupDeCoeur from "./page/CoupDeCoeur";
