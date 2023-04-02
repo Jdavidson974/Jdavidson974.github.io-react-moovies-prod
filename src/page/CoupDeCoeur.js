@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import NavBar from '../components/NavBar';
 import Card from '../components/Card';
-import FavoriteCard from '../components/FavoriteCard';
 
 const CoupDeCoeur = () => {
 
     const getLocalStorage = () => {
         const store = JSON.parse(localStorage.getItem('films'));
         if (store) {
-            console.log(store);
             return JSON.parse(localStorage.getItem('films'))
         } else {
             return [];

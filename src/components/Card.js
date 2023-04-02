@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 const Card = ({ data, getLocalStorage, storage, setStorage, ids
     , setIds
     , getLocalStorageIds }) => {
+        
     const apiKey = "9f44a50a5ee63c57193c6bee26e427bd";
     const imgUrl = "https://image.tmdb.org/t/p/w500/";
     const date = new Date(data.release_date)
@@ -23,7 +24,6 @@ const Card = ({ data, getLocalStorage, storage, setStorage, ids
     }
     useEffect(fetchDetail, []);
     const addToFavori = () => {
-        // localStorage.setItem('films', [JSON.stringify(data)]);
         if (storage) {
             const exist = storage.find(item => item.id == data.id);
             if (!exist) {
